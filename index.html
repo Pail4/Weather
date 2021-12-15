@@ -1,14 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./img/cloud_favicon.svg" sizes="32x32">
+    <link rel="stylesheet" href="./styles/clear.css">
     <link rel="stylesheet" href="./styles/style.css">
     <title>Weather</title>
 </head>
+
 <body>
-    
+    <div class="content">
+        <div class="wrapper">
+            <form action="search" class="search">
+                <input class="search-input" type="text" placeholder="Aktobe">
+            </form>
+            <div class="blocks">
+                <div class="weather">
+                    <div class="tab-now" id="tab-now">
+                        <div class="temperature">14</div>
+                        <div class="weather-img">Cloud</div>
+                        <span class="current-location">Aktobe</span>
+                        <input type="button" name="like" class="like-btn" id="likeBtn">
+                    </div>
+                    <div class="tab-details" id="tab-details">
+                        <div class="location-name">Aktobe</div>
+                        <ul class="details-list">
+                            <li>Temperature: <span class="grad">14</span></li>
+                            <li>Feels like: <span class="grad">14</span></li>
+                            <li>Weather: <span>Clouds</span></li>
+                            <li>Sunrise: <span>03:21</span></li>
+                            <li>Sunset: <span>18:54</span></li>
+                        </ul>
+                    </div>
+                    <div class="tab-forecast" id="tab-forecast">
+                        <div class="location-name">Aktobe</div>
+                        <div class="time-block-list">
+                            <div class="time-block">
+                                <div class="date">17 may</div>
+                                <div class="time">12:00</div>
+                                <div class="params">
+                                    <ul>
+                                        <li>Temperature: <span class="grad"></span></li>
+                                        <li>Feels like: <span class="grad"></span></li>
+                                    </ul>
+                                </div>
+                                <div class="rainfall"></div>
+                            </div>
+                            <div class="time-block">
+                                <div class="date">17 may</div>
+                                <div class="time">15:00</div>
+                                <div class="params">
+                                    <ul>
+                                        <li>Temperature: <span class="grad"></span></li>
+                                        <li>Feels like: <span class="grad"></span></li>
+                                    </ul>
+                                </div>
+                                <div class="rainfall"></div>
+                            </div>
+                            <div class="time-block">
+                                <div class="date">17 may</div>
+                                <div class="time">18:00</div>
+                                <div class="params">
+                                    <ul>
+                                        <li>Temperature: <span class="grad"></span></li>
+                                        <li>Feels like: <span class="grad"></span></li>
+                                    </ul>
+                                </div>
+                                <div class="rainfall"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <nav>
+                        <a href="" class="now-btn">Now</a>
+                        <a href="" class="details-btn">Details</a>
+                        <a href="" class="forecast-btn">Forecast</a>
+                    </nav>
+                </div>
+                <div class="locations">
+                    <div class="block-name">Added locations:</div>
+                    <div class="locations-list">
+                        <ul type="none">
+                            <li>Amur</li>
+                            <li>Samara</li>
+                            <li>Bali</li>
+                            <li>Dane</li>
+                            <li>Kilo</li>
+                            <li>Nur-Sultan</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

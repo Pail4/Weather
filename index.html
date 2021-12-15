@@ -27,17 +27,19 @@
                 <div class="weather">
 
                     <!-- FIRST TAB -->
-                    <div class="tab-now" id="tab01">
+                    <div class="tab tab-now" id="tab01">
                         <div class="temperature">14</div>
                         <div class="weather-img">Cloud</div>
-                        <span class="current-location">Aktobe</span>
-                        <input type="button" name="like" class="like-btn" id="likeBtn">
+                        <div class="bottom">
+                            <span class="current-location">Aktobe</span>
+                            <input type="button" name="like" class="like-btn" id="likeBtn">
+                        </div>
                     </div>
 
                     <!-- SECOND TAB -->
-                    <div class="tab-details" id="tab02">
+                    <div class="tab tab-details" style="display: none;" id="tab02">
                         <div class="location-name">Aktobe</div>
-                        <ul class="details-list">
+                        <ul class="details-list" type="none">
                             <li>Temperature: <span class="grad">14</span></li>
                             <li>Feels like: <span class="grad">14</span></li>
                             <li>Weather: <span>Clouds</span></li>
@@ -47,14 +49,14 @@
                     </div>
 
                     <!-- THIRD TAB -->
-                    <div class="tab-forecast" id="tab03">
+                    <div class="tab tab-forecast" style="display: none;" id="tab03">
                         <div class="location-name">Aktobe</div>
                         <div class="time-block-list">
                             <div class="time-block">
                                 <div class="date">17 may</div>
                                 <div class="time">12:00</div>
                                 <div class="params">
-                                    <ul>
+                                    <ul type="none">
                                         <li>Temperature: <span class="grad"></span></li>
                                         <li>Feels like: <span class="grad"></span></li>
                                     </ul>
@@ -65,7 +67,7 @@
                                 <div class="date">17 may</div>
                                 <div class="time">15:00</div>
                                 <div class="params">
-                                    <ul>
+                                    <ul type="none">
                                         <li>Temperature: <span class="grad"></span></li>
                                         <li>Feels like: <span class="grad"></span></li>
                                     </ul>
@@ -76,7 +78,7 @@
                                 <div class="date">17 may</div>
                                 <div class="time">18:00</div>
                                 <div class="params">
-                                    <ul>
+                                    <ul type="none">
                                         <li>Temperature: <span class="grad"></span></li>
                                         <li>Feels like: <span class="grad"></span></li>
                                     </ul>
@@ -87,10 +89,10 @@
                     </div>
 
                     <!-- NAVIGATION LINKS -->
-                    <nav>
-                        <a href="" class="now-btn">Now</a>
-                        <a href="" class="details-btn">Details</a>
-                        <a href="" class="forecast-btn">Forecast</a>
+                    <nav class="tab-nav">
+                        <a href="#" class="now-btn pressed">Now</a>
+                        <a href="#" class="details-btn">Details</a>
+                        <a href="#" class="forecast-btn">Forecast</a>
                     </nav>
                 </div>
 

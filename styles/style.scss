@@ -1,0 +1,125 @@
+// few constants
+$WALL_COLOR: #444;
+$BG_COLOR: #fff;
+$TEXT_COLOR: #000;
+$BORDER: 1px solid #000;
+
+body {
+    background-color: $WALL_COLOR;
+
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 28px;
+}
+
+///////////////////////////////////
+.content {
+    background-color: $BG_COLOR;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding: 12px;
+    width: 621px;
+    height: 457px;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+
+    border: $BORDER;
+    width: 600px;
+    height: 435px;
+    text-align: center;
+}
+
+///////// SEARCH ROW /////////////////////////
+.search {
+    .search-input {
+        width: 100%;
+        height: 45px;
+        border-bottom: $BORDER;
+    }
+}
+
+///////// TWO CONTENT - BLOCKS /////////////////////////
+.blocks {
+    box-sizing: content-box;
+    display: flex;
+    height: 100%;
+}
+
+///////// WEATHER - BLOCK /////////////////////////
+.weather {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
+    border-right: $BORDER;
+}
+
+//////// TABS //////////////////////////////////////
+
+.tab {
+    height: 100%;
+}
+
+.tab-now {
+    display: flex;
+    flex-direction: column;
+    .temperature {
+        margin: 20px;
+        height: 95px;
+    }
+
+    .weather-img {
+        margin-top: 20px;
+        height: 80px;
+    }
+
+    .bottom {
+        margin-top: auto;
+        min-height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        span {
+            margin: 0 0 17px 12px;
+        }
+        
+        .like-btn {
+            padding: 0;
+            margin: 0 26px 23px 0;
+            
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+        }
+    }
+}
+
+
+/////// NAVIGATION /////////////////////////////////
+.tab-nav {
+    height: 45px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    a {
+        display: inline-block;
+
+        vertical-align: middle;
+        font-size: 18px;
+        line-height: 21px;
+        text-decoration: none;
+        color: $TEXT_COLOR;
+        height: 41px;
+    }
+    .pressed {
+        color: #fff;
+        background-color: #000;
+    }
+
+
+    border-top: $BORDER;
+}

@@ -28,20 +28,20 @@
 
                     <!-- FIRST TAB -->
                     <div class="tab tab-now" id="tab01">
-                        <div class="temperature">14</div>
-                        <div class="weather-img">Cloud</div>
+                        <div class="temperature">14°</div>
+                        <div class="weather-img cloudy"></div>
                         <div class="bottom">
                             <span class="current-location">Aktobe</span>
-                            <input type="button" name="like" class="like-btn" id="likeBtn">
+                            <input type="button" name="like" class="like-btn active" id="likeBtn">
                         </div>
                     </div>
 
                     <!-- SECOND TAB -->
-                    <div class="tab tab-details" style="display: none;" id="tab02">
+                    <div class="tab tab-details active" id="tab02">
                         <div class="location-name">Aktobe</div>
                         <ul class="details-list" type="none">
-                            <li>Temperature: <span class="grad">14</span></li>
-                            <li>Feels like: <span class="grad">14</span></li>
+                            <li>Temperature: 14°</li>
+                            <li>Feels like: 14°</li>
                             <li>Weather: <span>Clouds</span></li>
                             <li>Sunrise: <span>03:21</span></li>
                             <li>Sunset: <span>18:54</span></li>
@@ -49,7 +49,7 @@
                     </div>
 
                     <!-- THIRD TAB -->
-                    <div class="tab tab-forecast" style="display: none;" id="tab03">
+                    <div class="tab tab-forecast" id="tab03">
                         <div class="location-name">Aktobe</div>
                         <div class="time-block-list">
                             <div class="time-block">
@@ -57,8 +57,8 @@
                                 <div class="time">12:00</div>
                                 <div class="params">
                                     <ul type="none">
-                                        <li>Temperature: <span class="grad"></span></li>
-                                        <li>Feels like: <span class="grad"></span></li>
+                                        <li>Temperature: </li>
+                                        <li>Feels like: </li>
                                     </ul>
                                 </div>
                                 <div class="rainfall"></div>
@@ -68,8 +68,8 @@
                                 <div class="time">15:00</div>
                                 <div class="params">
                                     <ul type="none">
-                                        <li>Temperature: <span class="grad"></span></li>
-                                        <li>Feels like: <span class="grad"></span></li>
+                                        <li>Temperature: </li>
+                                        <li>Feels like: </li>
                                     </ul>
                                 </div>
                                 <div class="rainfall"></div>
@@ -79,8 +79,8 @@
                                 <div class="time">18:00</div>
                                 <div class="params">
                                     <ul type="none">
-                                        <li>Temperature: <span class="grad"></span></li>
-                                        <li>Feels like: <span class="grad"></span></li>
+                                        <li>Temperature: </li>
+                                        <li>Feels like: </li>
                                     </ul>
                                 </div>
                                 <div class="rainfall"></div>
@@ -90,7 +90,7 @@
 
                     <!-- NAVIGATION LINKS -->
                     <nav class="tab-nav">
-                        <a href="#" class="now-btn pressed">Now</a>
+                        <a href="#" class="now-btn active">Now</a>
                         <a href="#" class="details-btn">Details</a>
                         <a href="#" class="forecast-btn">Forecast</a>
                     </nav>
@@ -101,7 +101,7 @@
                     <div class="block-name">Added locations:</div>
                     <div class="locations-list">
                         <ul type="none">
-                            <li>Amur</li>
+                            <li><button>Amur</button></li>
                             <li>Samara</li>
                             <li>Bali</li>
                             <li>Dane</li>

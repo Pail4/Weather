@@ -127,7 +127,6 @@ body {
     }
 }
 
-
 .tab-details {
     &.active{
         display: flex;
@@ -144,14 +143,19 @@ body {
     }
 }
 
+.tab-forecast {
+    &.active{
+        display: flex;
+    }
+}
+
 /////// NAVIGATION /////////////////////////////////
 .tab-nav {
     height: 45px;
     display: flex;
-    a {
+    button {
         border-top: $BORDER;
         display: inline-block;
-        padding-top: 10px;
         width: 100%;
 
         vertical-align: middle;
@@ -160,6 +164,11 @@ body {
         text-decoration: none;
         color: $TEXT_COLOR;
         height: 41px;
+
+        border-right: $BORDER;
+        &:last-child{
+            border-right: none;
+        }
     }
     .active {
         color: #fff;

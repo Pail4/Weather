@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
@@ -27,7 +27,7 @@
                 <div class="weather">
 
                     <!-- FIRST TAB -->
-                    <div class="tab tab-now" id="tab01">
+                    <div class="tab tab-now active" id="tab01">
                         <div class="temperature">14°</div>
                         <div class="weather-img cloudy"></div>
                         <div class="bottom">
@@ -37,7 +37,7 @@
                     </div>
 
                     <!-- SECOND TAB -->
-                    <div class="tab tab-details active" id="tab02">
+                    <div class="tab tab-details" id="tab02">
                         <div class="location-name">Aktobe</div>
                         <ul class="details-list" type="none">
                             <li>Temperature: 14°</li>
@@ -90,9 +90,9 @@
 
                     <!-- NAVIGATION LINKS -->
                     <nav class="tab-nav">
-                        <a href="#" class="now-btn active">Now</a>
-                        <a href="#" class="details-btn">Details</a>
-                        <a href="#" class="forecast-btn">Forecast</a>
+                        <button class="now-btn active" data-tab="NOW">Now</button>
+                        <button class="details-btn" data-tab="DETAILS">Details</button>
+                        <button class="forecast-btn" data-tab="FORECAST">Forecast</button>
                     </nav>
                 </div>
 
@@ -100,7 +100,7 @@
                 <div class="locations">
                     <div class="block-name">Added locations:</div>
                     <div class="locations-list">
-                        <ul type="none">
+                        <ul type="none" class="locations-ul">
                             <li><button>Amur</button></li>
                             <li>Samara</li>
                             <li>Bali</li>
@@ -113,6 +113,8 @@
             </div>
         </div>
     </div>
+    <script src="./js/main.js" type="module"></script>
+    <script src="./js/view.js" type="module"></script>
 </body>
 
 </html>

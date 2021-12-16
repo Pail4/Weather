@@ -1,7 +1,57 @@
 import { UI } from "./view.js";
 
+const serverUrl = 'http://api.openweathermap.org/data/2.5/weather';
+const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f';
+
+let locationList = []
+
+let currentTimeData = {
+    locationName: "",
+    temperature : "",
+    feelsLike: "",
+    weather: "",
+    sunrise: "",
+    sunset: "",
+}
+
+let currentDayData = {
+    "00:00": currentTimeData,
+    "03:00": currentTimeData,
+}
+
 function searchLocation(event){
     event.preventDefault();
+    const input = this.querySelector('input');
+    
+    const cityName = input.value;
+    const url = `${serverUrl}?q=${cityName}&appid=${apiKey}`;
+    parseData(cityName, url);
+}
+
+function parseData(cityName, url){
+    let promise = fetch(url);
+    promise.then((response) => response.json())
+    .then((commit) => {
+        console.log(commit);
+        currentTimeData.locationName = commit.name;
+        currentTimeData.temperature = commit.main.temp;
+        currentTimeData.feelsLike = commit.main.feels_like;
+        currentTimeData.weather = commit.weather[0].description;
+        currentTimeData.sunrise = parseTime(commit.sys.sunrise);
+        currentTimeData.sunset = parseTime(commit.sys.sunset);
+    })
+}
+
+function parseTime(timeUNIX){
+    let date = new Date(timeUNIX * 1000);
+    let hours = date.getHours();
+    // Minutes part from the timestamp
+    let minutes = "0" + date.getMinutes();
+
+    // Will display time in 10:30:23 format
+    let formattedTime = hours + ':' + minutes.slice(-2);
+    
+    return formattedTime;
 }
 
 function changeTab(event){
@@ -12,6 +62,8 @@ function changeTab(event){
     this.classList.add('active')
     UI.TABS[this.dataset.tab].classList.add('active');
 }
+
+
 
 window.onload = function() {
     UI.SEARCH_FORM.addEventListener('submit', searchLocation);

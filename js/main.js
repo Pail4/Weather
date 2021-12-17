@@ -26,19 +26,25 @@ function searchLocation(event){
     const cityName = input.value;
     const url = `${serverUrl}?q=${cityName}&appid=${apiKey}`;
     parseData(cityName, url);
+    this.reset();
 }
 
 function parseData(cityName, url){
     let promise = fetch(url);
     promise.then((response) => response.json())
     .then((commit) => {
-        console.log(commit);
         currentTimeData.locationName = commit.name;
-        currentTimeData.temperature = commit.main.temp;
-        currentTimeData.feelsLike = commit.main.feels_like;
+        currentTimeData.temperature = toGrad(commit.main.temp);
+        currentTimeData.feelsLike = toGrad(commit.main.feels_like);
         currentTimeData.weather = commit.weather[0].description;
         currentTimeData.sunrise = parseTime(commit.sys.sunrise);
         currentTimeData.sunset = parseTime(commit.sys.sunset);
+        updateTabs();
+    })
+    .catch(() => {
+        let input = UI.SEARCH_FORM.querySelector('input');
+        input.classList.add('error');
+        setTimeout(() => { input.classList.remove('error') }, 1000);
     })
 }
 
@@ -54,6 +60,10 @@ function parseTime(timeUNIX){
     return formattedTime;
 }
 
+function toGrad(kelvin){
+    return Math.round((kelvin - 273), 2);
+}
+
 function changeTab(event){
     for (let tabName in UI.TABS){
         UI.NAV_BTN[tabName].classList.remove('active');
@@ -63,6 +73,21 @@ function changeTab(event){
     UI.TABS[this.dataset.tab].classList.add('active');
 }
 
+///////UPDATERS
+
+function updateTabs(){
+    let blocks = UI.PARAM_BLOCKS;
+
+    setValueForBlocks(blocks.temp, currentTimeData.temperature);
+    setValueForBlocks(blocks.feelsLike, currentTimeData.feelsLike);
+    setValueForBlocks(blocks.locationName, currentTimeData.locationName);
+    setValueForBlocks(blocks.sunrise, currentTimeData.sunrise);
+    setValueForBlocks(blocks.sunset, currentTimeData.sunset);
+}
+
+function setValueForBlocks(blocks, value){
+    blocks.forEach((item) => { item.textContent = value; })
+}
 
 
 window.onload = function() {

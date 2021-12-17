@@ -1,3 +1,4 @@
+@charset "UTF-8";
 body {
   background-color: #444;
   font-family: "Roboto", sans-serif;
@@ -32,6 +33,10 @@ body {
   border-bottom: 1px solid #000;
   background-color: transparent;
   background: url(../img/search.svg) no-repeat right;
+  transition: background-color 0.2s;
+}
+.search .search-input.error {
+  background-color: rgba(219, 65, 65, 0.788);
 }
 
 .blocks {
@@ -51,6 +56,9 @@ body {
 .tab {
   height: 100%;
   display: none;
+}
+.tab .grad::after {
+  content: "°";
 }
 
 .tab-now {

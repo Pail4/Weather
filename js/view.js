@@ -13,5 +13,13 @@ export const UI = {
         FORECAST : document.querySelector('.forecast-btn'),
     },
 
-    LOCATIONS_UL : document.querySelector('.locations-ul')
+    LOCATIONS_UL : document.querySelector('.locations-ul'),
+
+    PARAM_BLOCKS : {
+        temp : document.querySelectorAll('.temp'),
+        feelsLike : document.querySelectorAll('.feels-like'),
+        locationName : document.querySelectorAll('.location-name'),
+        sunrise : document.querySelectorAll('.sunrise'),
+        sunset : document.querySelectorAll('.sunset'),
+    }
 }

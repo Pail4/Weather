@@ -44,6 +44,10 @@ body {
 
         background-color: transparent;
         background: url(../img/search.svg) no-repeat right;
+        transition: background-color 0.2s;
+        &.error{
+            background-color: rgba(219, 65, 65, 0.788);
+        }
     }
 }
 
@@ -68,6 +72,9 @@ body {
 .tab {
     height: 100%;
     display: none;
+    .grad::after{
+        content: "°";
+    }
 }
 
 .tab-now {

@@ -3,6 +3,7 @@ $WALL_COLOR: #444;
 $BG_COLOR: #fff;
 $TEXT_COLOR: #000;
 $BORDER: 1px solid #000;
+$HOVER_COLOR: #8685853d;
 
 body {
     background-color: $WALL_COLOR;
@@ -46,7 +47,7 @@ body {
         background: url(../img/search.svg) no-repeat right;
         transition: background-color 0.2s;
         &.error{
-            background-color: rgba(219, 65, 65, 0.788);
+            background-color: rgba(219, 65, 65, 0.322);
         }
     }
 }
@@ -94,17 +95,25 @@ body {
     .weather-img {
         margin-top: 20px;
         height: 80px;
-        &.cloudy{
+        &.clouds{
             background: url(../img/cloudy.svg) no-repeat center;
+            background-size: contain;
         }
-        &.rainy {
-            background: none;
+        &.rain {
+            background: url(../img/rainy.svg) no-repeat center;
+            background-size: contain;
         }
-        &.sunny {
-            background: none;
+        &.sun {
+            background: url(../img/sunny.svg) no-repeat center;
+            background-size: contain;
         }
-        &.snowy {
-            background: none;
+        &.snow {
+            background: url(../img/snowy.svg) no-repeat center;
+            background-size: contain;
+        }
+        &.mist {
+            background: url(../img/snowy.svg) no-repeat center;
+            background-size: contain;
         }
     }
 
@@ -123,13 +132,20 @@ body {
             margin: 0 26px 23px 0;
             
             display: inline-block;
-            width: 23px;
-            height: 24px;
+            width: 25px;
+            height: 25px;
 
             background: url(../img/like.svg) no-repeat center;
-            &.active {
+            &:hover {
                 background: url(../img/like_active.svg) no-repeat center;
             }
+            &.active {
+                background: url(../img/like_active.svg) no-repeat center;
+                &:hover{
+                    background: url(../img/like.svg) no-repeat center;
+                }
+            }
+            
         }
     }
 }
@@ -164,6 +180,7 @@ body {
         border-top: $BORDER;
         display: inline-block;
         width: 100%;
+        background-color: #fff;
 
         vertical-align: middle;
         font-size: 18px;
@@ -176,10 +193,16 @@ body {
         &:last-child{
             border-right: none;
         }
+        &:hover{
+            background-color: $HOVER_COLOR;
+        }
     }
     .active {
         color: #fff;
         background-color: #000;
+        &:hover{
+            background-color: #000;
+        }
     }
 }
 
@@ -194,12 +217,30 @@ body {
     }
 
     .locations-list {
-        margin-top: 35px;
-        margin-left: 18px;
-        button {
-            background: transparent;
-            margin: 0;
-            padding: 0;
+        margin: 35px 18px 0 18px;
+
+        li{
+            display: flex;
+            justify-content: space-between;
+            .liked-location {
+                background: transparent;
+                margin: 0;
+                padding: 0;
+                text-align: left;
+                width: 100%;
+            }
+            .delete-location{
+                vertical-align: middle;
+                width: 27px;
+                height: 27px;
+                background: url(../img/cross.svg) no-repeat center;
+                &:hover{
+                    background-color: $HOVER_COLOR;
+                }
+            }
+            &:hover{
+                background-color: $HOVER_COLOR;
+            }
         }
     }
 }

@@ -36,7 +36,7 @@ body {
   transition: background-color 0.2s;
 }
 .search .search-input.error {
-  background-color: rgba(219, 65, 65, 0.788);
+  background-color: rgba(219, 65, 65, 0.322);
 }
 
 .blocks {
@@ -78,17 +78,25 @@ body {
   margin-top: 20px;
   height: 80px;
 }
-.tab-now .weather-img.cloudy {
+.tab-now .weather-img.clouds {
   background: url(../img/cloudy.svg) no-repeat center;
+  background-size: contain;
 }
-.tab-now .weather-img.rainy {
-  background: none;
+.tab-now .weather-img.rain {
+  background: url(../img/rainy.svg) no-repeat center;
+  background-size: contain;
 }
-.tab-now .weather-img.sunny {
-  background: none;
+.tab-now .weather-img.sun {
+  background: url(../img/sunny.svg) no-repeat center;
+  background-size: contain;
 }
-.tab-now .weather-img.snowy {
-  background: none;
+.tab-now .weather-img.snow {
+  background: url(../img/snowy.svg) no-repeat center;
+  background-size: contain;
+}
+.tab-now .weather-img.mist {
+  background: url(../img/snowy.svg) no-repeat center;
+  background-size: contain;
 }
 .tab-now .bottom {
   margin-top: auto;
@@ -104,12 +112,18 @@ body {
   padding: 0;
   margin: 0 26px 23px 0;
   display: inline-block;
-  width: 23px;
-  height: 24px;
+  width: 25px;
+  height: 25px;
   background: url(../img/like.svg) no-repeat center;
+}
+.tab-now .bottom .like-btn:hover {
+  background: url(../img/like_active.svg) no-repeat center;
 }
 .tab-now .bottom .like-btn.active {
   background: url(../img/like_active.svg) no-repeat center;
+}
+.tab-now .bottom .like-btn.active:hover {
+  background: url(../img/like.svg) no-repeat center;
 }
 
 .tab-details {
@@ -139,6 +153,7 @@ body {
   border-top: 1px solid #000;
   display: inline-block;
   width: 100%;
+  background-color: #fff;
   vertical-align: middle;
   font-size: 18px;
   line-height: 21px;
@@ -150,8 +165,14 @@ body {
 .tab-nav button:last-child {
   border-right: none;
 }
+.tab-nav button:hover {
+  background-color: #8685853d;
+}
 .tab-nav .active {
   color: #fff;
+  background-color: #000;
+}
+.tab-nav .active:hover {
   background-color: #000;
 }
 
@@ -164,13 +185,30 @@ body {
   border-bottom: 1px solid #000;
 }
 .locations .locations-list {
-  margin-top: 35px;
-  margin-left: 18px;
+  margin: 35px 18px 0 18px;
 }
-.locations .locations-list button {
+.locations .locations-list li {
+  display: flex;
+  justify-content: space-between;
+}
+.locations .locations-list li .liked-location {
   background: transparent;
   margin: 0;
   padding: 0;
+  text-align: left;
+  width: 100%;
+}
+.locations .locations-list li .delete-location {
+  vertical-align: middle;
+  width: 27px;
+  height: 27px;
+  background: url(../img/cross.svg) no-repeat center;
+}
+.locations .locations-list li .delete-location:hover {
+  background-color: #8685853d;
+}
+.locations .locations-list li:hover {
+  background-color: #8685853d;
 }
 
 /*# sourceMappingURL=style.css.map */

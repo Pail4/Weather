@@ -92,29 +92,34 @@ body {
         line-height: 82px;
     }
 
+
     .weather-img {
-        margin-top: 20px;
-        height: 80px;
-        &.clouds{
-            background: url(../img/cloudy.svg) no-repeat center;
-            background-size: contain;
-        }
-        &.rain {
-            background: url(../img/rainy.svg) no-repeat center;
-            background-size: contain;
-        }
-        &.sun {
-            background: url(../img/sunny.svg) no-repeat center;
-            background-size: contain;
-        }
-        &.snow {
-            background: url(../img/snowy.svg) no-repeat center;
-            background-size: contain;
-        }
-        &.mist {
-            background: url(../img/snowy.svg) no-repeat center;
-            background-size: contain;
-        }
+        display: inline-block;
+        align-self: center;
+        object-fit: cover;
+        width: 150px;
+        height: 150px;
+        //margin-top: 20px
+        //&.clouds{
+        //    background: url(../img/cloudy.svg) no-repeat center;
+        //    background-size: contain;
+        //}
+        //&.rain {
+        //    background: url(../img/rainy.svg) no-repeat center;
+        //    background-size: contain;
+        //}
+        //&.sun {
+        //    background: url(../img/sunny.svg) no-repeat center;
+        //    background-size: contain;
+        //}
+        //&.snow {
+        //    background: url(../img/snowy.svg) no-repeat center;
+        //    background-size: contain;
+        //}
+        //&.mist {
+        //    background: url(../img/snowy.svg) no-repeat center;
+        //    background-size: contain;
+        //}
     }
 
     .bottom {

@@ -75,28 +75,11 @@ body {
   line-height: 82px;
 }
 .tab-now .weather-img {
-  margin-top: 20px;
-  height: 80px;
-}
-.tab-now .weather-img.clouds {
-  background: url(../img/cloudy.svg) no-repeat center;
-  background-size: contain;
-}
-.tab-now .weather-img.rain {
-  background: url(../img/rainy.svg) no-repeat center;
-  background-size: contain;
-}
-.tab-now .weather-img.sun {
-  background: url(../img/sunny.svg) no-repeat center;
-  background-size: contain;
-}
-.tab-now .weather-img.snow {
-  background: url(../img/snowy.svg) no-repeat center;
-  background-size: contain;
-}
-.tab-now .weather-img.mist {
-  background: url(../img/snowy.svg) no-repeat center;
-  background-size: contain;
+  display: inline-block;
+  align-self: center;
+  object-fit: cover;
+  width: 150px;
+  height: 150px;
 }
 .tab-now .bottom {
   margin-top: auto;

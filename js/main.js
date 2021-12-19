@@ -149,7 +149,7 @@ function updateTabs(){
 }
 
 function setValueForBlocks(blocks, value){
-    blocks.forEach((item) => { item.textContent = value; })
+    blocks.forEach((item) => { item.textContent = value; });
 }
 
 

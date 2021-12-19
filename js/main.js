@@ -2,6 +2,7 @@ import {UI} from "./view.js";
 
 const serverUrl = 'https://api.openweathermap.org/data/2.5/weather';
 const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f';
+const serverIconUrl = 'https://openweathermap.org/img/wn/';
 
 let locationList = ["Perm"];
 
@@ -10,6 +11,7 @@ let currentTimeData = {
     temperature : "",
     feelsLike: "",
     weather: "",
+    weatherIcon: "",
     sunrise: "",
     sunset: "",
     liked() { return locationList.includes(this.locationName) },
@@ -33,6 +35,9 @@ function parseData(cityName, url){
     const promise = fetch(url);
     promise.then((response) => response.json())
     .then((commit) => {
+        const iconCode = commit.weather[0].icon;
+        currentTimeData.weatherIcon = `${serverIconUrl}${iconCode}@4x.png`;
+
         currentTimeData.locationName = commit.name;
         currentTimeData.temperature = toGrad(commit.main.temp);
         currentTimeData.feelsLike = toGrad(commit.main.feels_like);
@@ -67,7 +72,6 @@ function addLocation(e){
         deleteLocation(e, true);
         return;
     }
-
 
     let liElem = document.createElement('li');
     let likedLocation = document.createElement('input');
@@ -135,9 +139,13 @@ function updateTabs(){
     setValueForBlocks(blocks.sunset, currentTimeData.sunset);
     let isInList = currentTimeData.liked() ? 'active' : '';
     UI.LIKE_BTN.className = "like-btn " + isInList ;
-    
 
-    document.querySelector('.weather-img').className = "weather-img " + currentTimeData.weather.toLocaleLowerCase();
+    let img = document.querySelector('.weather-img')
+    img.src = currentTimeData.weatherIcon;
+    img.alt = currentTimeData.weather;
+
+
+    //document.querySelector('.weather-img').className = "weather-img " + currentTimeData.weather.toLocaleLowerCase();
 }
 
 function setValueForBlocks(blocks, value){

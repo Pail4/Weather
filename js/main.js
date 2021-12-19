@@ -1,9 +1,9 @@
-import { UI } from "./view.js";
+import {UI} from "./view.js";
 
 const serverUrl = 'https://api.openweathermap.org/data/2.5/weather';
 const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f';
 
-let locationList = ["Perm"]
+let locationList = ["Perm"];
 
 let currentTimeData = {
     locationName: "",
@@ -15,10 +15,10 @@ let currentTimeData = {
     liked() { return locationList.includes(this.locationName) },
 }
 
-let currentDayData = {
-    "00:00": currentTimeData,
-    "03:00": currentTimeData,
-}
+// let currentDayData = {
+//     "00:00": currentTimeData,
+//     "03:00": currentTimeData,
+// }
 
 function searchLocation(event){
     event.preventDefault();
@@ -30,7 +30,7 @@ function searchLocation(event){
 }
 
 function parseData(cityName, url){
-    let promise = fetch(url);
+    const promise = fetch(url);
     promise.then((response) => response.json())
     .then((commit) => {
         currentTimeData.locationName = commit.name;
@@ -55,9 +55,7 @@ function parseTime(timeUNIX){
     let minutes = "0" + date.getMinutes();
 
     // Will display time in 10:30:23 format
-    let formattedTime = hours + ':' + minutes.slice(-2);
-    
-    return formattedTime;
+    return hours + ':' + minutes.slice(-2);
 }
 
 function toGrad(kelvin){
@@ -69,6 +67,7 @@ function addLocation(e){
         deleteLocation(e, true);
         return;
     }
+
 
     let liElem = document.createElement('li');
     let likedLocation = document.createElement('input');
@@ -97,7 +96,8 @@ function deleteLocation(e, isCurrentLocation = false){
         return
     locationList.splice(itemIndex, 1);
     if (isCurrentLocation){
-        let deletingElement = Array.from(UI.LOCATIONS_UL.querySelectorAll('li input')).find((item) => item.value === currentTimeData.locationName)
+        let deletingElement = Array.from(UI.LOCATIONS_UL.querySelectorAll('li input'))
+            .find((item) => item.value === currentTimeData.locationName)
         //deletingElement.find((item) => item.value === currentTimeData.locationName)
         deletingElement.parentNode.remove();
     }
@@ -108,13 +108,13 @@ function deleteLocation(e, isCurrentLocation = false){
     }
 }
 
-function changeLocation(e){
+function changeLocation(){
     UI.SEARCH_INPUT.value = this.value;
     let event = new Event("submit");
     UI.SEARCH_FORM.dispatchEvent(event);
 }
 
-function changeTab(event){
+function changeTab(){
     for (let tabName in UI.TABS){
         UI.NAV_BTN[tabName].classList.remove('active');
         UI.TABS[tabName].classList.remove('active');

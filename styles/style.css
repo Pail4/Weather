@@ -186,6 +186,9 @@ body {
 }
 .locations .locations-list {
   margin: 35px 18px 0 18px;
+  height: 100%;
+  max-height: 250px;
+  overflow: auto;
 }
 .locations .locations-list li {
   display: flex;

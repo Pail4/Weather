@@ -140,11 +140,11 @@ function updateTabs(){
     let isInList = currentTimeData.liked() ? 'active' : '';
     UI.LIKE_BTN.className = "like-btn " + isInList ;
 
-    let img = document.querySelector('.weather-img')
-    img.src = currentTimeData.weatherIcon;
-    img.alt = currentTimeData.weather;
+    let weatherImg = document.createElement('img');
+    weatherImg.alt = currentTimeData.weather;
+    weatherImg.src = currentTimeData.weatherIcon;
 
-
+    document.querySelector('.weather-img img').replaceWith(weatherImg);
     //document.querySelector('.weather-img').className = "weather-img " + currentTimeData.weather.toLocaleLowerCase();
 }
 

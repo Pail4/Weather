@@ -143,8 +143,6 @@ function updateTabs(){
     let img = document.querySelector('.weather-img')
     img.src = currentTimeData.weatherIcon;
     img.alt = currentTimeData.weather;
-
-
     //document.querySelector('.weather-img').className = "weather-img " + currentTimeData.weather.toLocaleLowerCase();
 }
 

@@ -1,21 +1,9 @@
 import {UI} from "./view.js";
+import {currentTimeData} from "./storage.js";
 
 const serverUrl = 'https://api.openweathermap.org/data/2.5/weather';
 const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f';
 const serverIconUrl = 'https://openweathermap.org/img/wn/';
-
-let locationList = ["Perm"];
-
-let currentTimeData = {
-    locationName: "",
-    temperature : "",
-    feelsLike: "",
-    weather: "",
-    weatherIcon: "",
-    sunrise: "",
-    sunset: "",
-    liked() { return locationList.includes(this.locationName) },
-}
 
 // let currentDayData = {
 //     "00:00": currentTimeData,
@@ -67,8 +55,8 @@ function toGrad(kelvin){
     return Math.round((kelvin - 273.14));
 }
 
-function addLocation(e){
-    if (currentTimeData.liked()){
+function addLocation(e, onload = ""){
+    if (!onload && currentTimeData.liked()){
         deleteLocation(e, true);
         return;
     }
@@ -83,22 +71,27 @@ function addLocation(e){
     deleteBtn.classList.add('delete-location');
     deleteBtn.addEventListener("click", deleteLocation);
 
-    likedLocation.value = currentTimeData.locationName;
+    if (onload)
+        likedLocation.value = onload
+    else {
+        likedLocation.value = currentTimeData.locationName;
+        currentTimeData.locationList.push(currentTimeData.locationName);
+        UI.LIKE_BTN.classList.add('active');
+    }
 
-    locationList.push(currentTimeData.locationName);
-    UI.LIKE_BTN.classList.add('active');
     liElem.append(likedLocation, deleteBtn);
     UI.LOCATIONS_UL.prepend(liElem);
+    currentTimeData.push();
 }
 
 function deleteLocation(e, isCurrentLocation = false){
     let locationName = isCurrentLocation ?
      currentTimeData.locationName : this.previousSibling.value
     
-    let itemIndex = locationList.findIndex((item) => item === locationName)
+    let itemIndex = currentTimeData.locationList.findIndex((item) => item === locationName)
     if (itemIndex === -1)
         return
-    locationList.splice(itemIndex, 1);
+    currentTimeData.locationList.splice(itemIndex, 1);
     if (isCurrentLocation){
         let deletingElement = Array.from(UI.LOCATIONS_UL.querySelectorAll('li input'))
             .find((item) => item.value === currentTimeData.locationName)
@@ -110,6 +103,7 @@ function deleteLocation(e, isCurrentLocation = false){
     if (locationName === currentTimeData.locationName){
         UI.LIKE_BTN.classList.remove('active');
     }
+    currentTimeData.push();
 }
 
 function changeLocation(){
@@ -129,8 +123,11 @@ function changeTab(){
 
 ///////UPDATERS
 
-function updateTabs(){
+function updateTabs(onload = false){
     let blocks = UI.PARAM_BLOCKS;
+    if (onload){
+        currentTimeData.locationList.forEach((name) => addLocation(null, name))
+    }
 
     setValueForBlocks(blocks.temp, currentTimeData.temperature);
     setValueForBlocks(blocks.feelsLike, currentTimeData.feelsLike);
@@ -143,6 +140,8 @@ function updateTabs(){
     let img = document.querySelector('.weather-img')
     img.src = currentTimeData.weatherIcon;
     img.alt = currentTimeData.weather;
+
+    currentTimeData.push();
     //document.querySelector('.weather-img').className = "weather-img " + currentTimeData.weather.toLocaleLowerCase();
 }
 
@@ -152,6 +151,8 @@ function setValueForBlocks(blocks, value){
 
 
 window.onload = function() {
+    currentTimeData.get();
+    updateTabs(true);
     UI.SEARCH_FORM.addEventListener('submit', searchLocation);
     UI.LIKE_BTN.addEventListener('click', addLocation);
     UI.DELETE_BTN.addEventListener('click', deleteLocation);
@@ -160,7 +161,5 @@ window.onload = function() {
     for (let btn in UI.NAV_BTN){
         UI.NAV_BTN[btn].addEventListener('click', changeTab);
     }
-    let startEvent = new Event("submit");
-    UI.SEARCH_INPUT.value = "Perm";
-    UI.SEARCH_FORM.dispatchEvent(startEvent);
+
 }

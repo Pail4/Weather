@@ -155,8 +155,8 @@ window.onload = function() {
     updateTabs(true);
     UI.SEARCH_FORM.addEventListener('submit', searchLocation);
     UI.LIKE_BTN.addEventListener('click', addLocation);
-    UI.DELETE_BTN.addEventListener('click', deleteLocation);
-    UI.CHOOSE_LOCTION.addEventListener('click', changeLocation);
+    //UI.DELETE_BTN.addEventListener('click', deleteLocation);
+    //UI.CHOOSE_LOCTION.addEventListener('click', changeLocation);
 
     for (let btn in UI.NAV_BTN){
         UI.NAV_BTN[btn].addEventListener('click', changeTab);

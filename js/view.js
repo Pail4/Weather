@@ -56,8 +56,9 @@ export function updateTabs(){
 }
 
 function updateThirdTab(){
+    // TODO: onload view fix;
     const timeBlockList = UI.FORECAST_BLOCKS.timeBlockList.cloneNode();
-    UI.FORECAST_BLOCKS.timeBlockList.remove();
+    document.querySelector('.time-block-list').remove();
     for (let date in weatherForecast) {
         const time = date.slice(-5).trim();
         const day = date.slice(0, -5).trim();

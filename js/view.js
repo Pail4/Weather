@@ -1,3 +1,5 @@
+import {weatherNow} from "./storage.js";
+
 export const UI = {
     SEARCH_FORM : document.querySelector(".search"),
     SEARCH_INPUT : document.querySelector(".search-input"),
@@ -23,7 +25,44 @@ export const UI = {
     },
     
     LOCATIONS_UL : document.querySelector('.locations-ul'),
-    CHOOSE_LOCTION : document.querySelector('.liked-location'),
+    CHOOSE_LOCATION : document.querySelector('.liked-location'),
     LIKE_BTN : document.querySelector('.like-btn'),
     DELETE_BTN : document.querySelector('.delete-location'),
+}
+
+
+export function updateTabs(){
+    let blocks = UI.PARAM_BLOCKS;
+
+    setValueForBlocks(blocks.temp, weatherNow.temperature);
+    setValueForBlocks(blocks.feelsLike, weatherNow.feelsLike);
+    setValueForBlocks(blocks.locationName, weatherNow.locationName);
+    setValueForBlocks(blocks.sunrise, weatherNow.sunrise);
+    setValueForBlocks(blocks.sunset, weatherNow.sunset);
+    let isInList = weatherNow.liked() ? 'active' : '';
+    UI.LIKE_BTN.className = "like-btn " + isInList ;
+
+    let img = document.querySelector('.weather-img')
+    img.src = weatherNow.weatherIcon;
+    img.alt = weatherNow.weather;
+    updateThirdTab();
+
+    weatherNow.push();
+}
+
+function updateThirdTab(){
+
+}
+
+export function setValueForBlocks(blocks, value){
+    blocks.forEach((item) => { item.textContent = value; });
+}
+
+export function changeTab(){
+    for (let tabName in UI.TABS){
+        UI.NAV_BTN[tabName].classList.remove('active');
+        UI.TABS[tabName].classList.remove('active');
+    }
+    this.classList.add('active')
+    UI.TABS[this.dataset.tab].classList.add('active');
 }

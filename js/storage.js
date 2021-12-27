@@ -1,4 +1,4 @@
-export const currentTimeData = {
+export const weatherNow = {
     locationName: "",
     temperature : "",
     feelsLike: "",
@@ -16,3 +16,5 @@ export const currentTimeData = {
         }
     }
 }
+
+export const weatherForecast = [];

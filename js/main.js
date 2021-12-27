@@ -1,165 +1,170 @@
-import {UI} from "./view.js";
-import {currentTimeData} from "./storage.js";
+import {changeTab, UI, updateTabs} from "./view.js";
+import {weatherNow} from "./storage.js";
 
-const serverUrl = 'https://api.openweathermap.org/data/2.5/weather';
-const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f';
-const serverIconUrl = 'https://openweathermap.org/img/wn/';
+const server = {
+    serverUrl : 'https://api.openweathermap.org/data/2.5/weather',
+    apiKey : '3fe949c0b26e50dd4a636123c3945f54',
+    serverIconUrl : 'https://openweathermap.org/img/wn/',
+    forecastServerUrl : 'https://api.openweathermap.org/data/2.5/forecast',
+    metric : '&units=metric',
+}
 
-// let currentDayData = {
-//     "00:00": currentTimeData,
-//     "03:00": currentTimeData,
-// }
+const weatherForecast = {};
 
 function searchLocation(event){
     event.preventDefault();
     
     const cityName = UI.SEARCH_INPUT.value;
-    const url = `${serverUrl}?q=${cityName}&appid=${apiKey}`;
-    parseData(cityName, url);
+    const url = `${server.serverUrl}?q=${cityName}&appid=${server.apiKey}`;
+    const forecastUrl = `${server.forecastServerUrl}?q=${cityName}&appid=${server.apiKey}`;
+    parseData(cityName, url, forecastUrl);
     this.reset();
 }
 
-function parseData(cityName, url){
-    const promise = fetch(url);
-    promise.then((response) => response.json())
-    .then((commit) => {
-        const iconCode = commit.weather[0].icon;
-        currentTimeData.weatherIcon = `${serverIconUrl}${iconCode}@4x.png`;
+function parseData(cityName, url, forecastUrl) {
+    getCurrentWeather(url);
+    getForecast(forecastUrl);
+    updateTabs();
+}
 
-        currentTimeData.locationName = commit.name;
-        currentTimeData.temperature = toGrad(commit.main.temp);
-        currentTimeData.feelsLike = toGrad(commit.main.feels_like);
-        currentTimeData.weather = commit.weather[0].main;
-        currentTimeData.sunrise = parseTime(commit.sys.sunrise);
-        currentTimeData.sunset = parseTime(commit.sys.sunset);
-        updateTabs();
-    })
-    .catch(() => {
-        let input = UI.SEARCH_FORM.querySelector('input');
-        input.classList.add('error');
-        setTimeout(() => { input.classList.remove('error') }, 1000);
-    })
+function getCurrentWeather(url){
+    fetch(url).then((response) => response.json())
+        .then((commit) => {
+            Object.assign(weatherNow, setWeatherToObject(commit, commit.name));
+            updateTabs();
+        })
+        .catch(() => {
+            let input = UI.SEARCH_FORM.querySelector('input');
+            input.classList.add('error');
+            setTimeout(() => {
+                input.classList.remove('error')
+            }, 1000);
+        })
+}
+
+function setWeatherToObject(fromObj, locationName){
+    const targetObj = {};
+    targetObj.locationName = locationName;
+    targetObj.temperature = toGrad(fromObj.main.temp);
+    targetObj.feelsLike = toGrad(fromObj.main["feels_like"]);
+    targetObj.weather = fromObj.weather[0].main;
+    targetObj.sunrise = parseTime(fromObj.sys.sunrise);
+    targetObj.sunset = parseTime(fromObj.sys.sunset);
+    const iconCode = fromObj.weather[0].icon;
+    targetObj.weatherIcon = `${server.serverIconUrl}${iconCode}@4x.png`;
+
+    return targetObj;
+}
+
+function  getForecast(url){
+    fetch(url)
+        .then(response => { return response.json() })
+        .then(forecast => {
+            if (forecast === 404) {
+                throw Error("Forecast not found:(")
+            }
+            forecast.list.forEach((item) => {
+                const time = parseDate(item["dt"]) + ' ' + parseTime(item["dt"]);
+                weatherForecast[time] = setWeatherToObject(item, forecast["city"]["name"]);
+            })
+        })
+        .catch(alert)
 }
 
 function parseTime(timeUNIX){
-    let date = new Date(timeUNIX * 1000);
-    let hours = date.getHours();
-    // Minutes part from the timestamp
-    let minutes = "0" + date.getMinutes();
+    if (!timeUNIX) return undefined;
 
-    // Will display time in 10:30:23 format
+    let date = new Date(timeUNIX * 1000);
+
+    let hours = date.getHours();
+    let minutes = "0" + date.getMinutes();
     return hours + ':' + minutes.slice(-2);
+}
+
+function parseDate(timeUNIX){
+    let date = new Date(timeUNIX * 1000);
+
+    let day = date.getDate()  + ' ' + date.toLocaleString('en', { month: 'short' });
+    return day;
 }
 
 function toGrad(kelvin){
     return Math.round((kelvin - 273.14));
 }
 
-function addLocation(e, onload = ""){
-    if (!onload && currentTimeData.liked()){
-        deleteLocation(e, true);
+function addLocationInList(event){
+    if (weatherNow.liked()){
+        deleteLocation(event, true);
         return;
     }
 
+    let liElem = createLikedElement(weatherNow.locationName);
+    UI.LOCATIONS_UL.prepend(liElem);
+
+    UI.LIKE_BTN.classList.add('active');
+
+    weatherNow.locationList.push(weatherNow.locationName);
+    weatherNow.push();
+}
+
+function loadLocationInList(locationName){
+    let liElem = createLikedElement(locationName);
+    UI.LOCATIONS_UL.prepend(liElem);
+}
+
+function createLikedElement(locationName){
     let liElem = document.createElement('li');
     let likedLocation = document.createElement('input');
     likedLocation.classList.add('liked-location');
     likedLocation.type = "button"
-    likedLocation.addEventListener("click", changeLocation);
+    likedLocation.addEventListener("click", () => {changeLocation(locationName)});
+    likedLocation.value = locationName;
 
     let deleteBtn = document.createElement('button');
     deleteBtn.classList.add('delete-location');
     deleteBtn.addEventListener("click", deleteLocation);
 
-    if (onload)
-        likedLocation.value = onload
-    else {
-        likedLocation.value = currentTimeData.locationName;
-        currentTimeData.locationList.push(currentTimeData.locationName);
-        UI.LIKE_BTN.classList.add('active');
-    }
-
     liElem.append(likedLocation, deleteBtn);
-    UI.LOCATIONS_UL.prepend(liElem);
-    currentTimeData.push();
+    return liElem;
 }
 
 function deleteLocation(e, isCurrentLocation = false){
     let locationName = isCurrentLocation ?
-     currentTimeData.locationName : this.previousSibling.value
+     weatherNow.locationName : this.previousSibling.value
     
-    let itemIndex = currentTimeData.locationList.findIndex((item) => item === locationName)
-    if (itemIndex === -1)
-        return
-    currentTimeData.locationList.splice(itemIndex, 1);
+    let itemIndex = weatherNow.locationList.findIndex((item) => item === locationName)
+    if (itemIndex === -1) return;
+
+    weatherNow.locationList.splice(itemIndex, 1);
     if (isCurrentLocation){
         let deletingElement = Array.from(UI.LOCATIONS_UL.querySelectorAll('li input'))
-            .find((item) => item.value === currentTimeData.locationName)
+            .find((item) => item.value === weatherNow.locationName)
         //deletingElement.find((item) => item.value === currentTimeData.locationName)
         deletingElement.parentNode.remove();
     }
-    else { e.target.parentNode.remove(); }
+    else e.target.parentNode.remove();
     
-    if (locationName === currentTimeData.locationName){
+    if (locationName === weatherNow.locationName){
         UI.LIKE_BTN.classList.remove('active');
     }
-    currentTimeData.push();
+    weatherNow.push();
 }
 
-function changeLocation(){
-    UI.SEARCH_INPUT.value = this.value;
+function changeLocation(locationName){
+    UI.SEARCH_INPUT.value = locationName;
     let event = new Event("submit");
     UI.SEARCH_FORM.dispatchEvent(event);
 }
 
-function changeTab(){
-    for (let tabName in UI.TABS){
-        UI.NAV_BTN[tabName].classList.remove('active');
-        UI.TABS[tabName].classList.remove('active');
-    }
-    this.classList.add('active')
-    UI.TABS[this.dataset.tab].classList.add('active');
-}
-
-///////UPDATERS
-
-function updateTabs(onload = false){
-    let blocks = UI.PARAM_BLOCKS;
-    if (onload){
-        currentTimeData.locationList.forEach((name) => addLocation(null, name))
-    }
-
-    setValueForBlocks(blocks.temp, currentTimeData.temperature);
-    setValueForBlocks(blocks.feelsLike, currentTimeData.feelsLike);
-    setValueForBlocks(blocks.locationName, currentTimeData.locationName);
-    setValueForBlocks(blocks.sunrise, currentTimeData.sunrise);
-    setValueForBlocks(blocks.sunset, currentTimeData.sunset);
-    let isInList = currentTimeData.liked() ? 'active' : '';
-    UI.LIKE_BTN.className = "like-btn " + isInList ;
-
-    let img = document.querySelector('.weather-img')
-    img.src = currentTimeData.weatherIcon;
-    img.alt = currentTimeData.weather;
-
-    currentTimeData.push();
-    //document.querySelector('.weather-img').className = "weather-img " + currentTimeData.weather.toLocaleLowerCase();
-}
-
-function setValueForBlocks(blocks, value){
-    blocks.forEach((item) => { item.textContent = value; });
-}
-
 
 window.onload = function() {
-    currentTimeData.get();
-    updateTabs(true);
+    weatherNow.get();
+    weatherNow.locationList.forEach((name) => loadLocationInList(name))
     UI.SEARCH_FORM.addEventListener('submit', searchLocation);
-    UI.LIKE_BTN.addEventListener('click', addLocation);
-    //UI.DELETE_BTN.addEventListener('click', deleteLocation);
-    //UI.CHOOSE_LOCTION.addEventListener('click', changeLocation);
+    UI.LIKE_BTN.addEventListener('click', addLocationInList);
 
     for (let btn in UI.NAV_BTN){
         UI.NAV_BTN[btn].addEventListener('click', changeTab);
     }
-
+    changeLocation(weatherNow.locationName);
 }

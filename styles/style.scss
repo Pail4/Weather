@@ -199,6 +199,15 @@ body {
         display: flex;
         justify-content: space-between;
     }
+
+    .time-block-weather{
+        text-align: center;
+    }
+    .time-weather-img{
+        margin: -10px;
+        width: 40px;
+        height: 40px;
+    }
 }
 
 /////// NAVIGATION /////////////////////////////////

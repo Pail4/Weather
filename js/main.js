@@ -1,5 +1,5 @@
 import {changeTab, UI, updateTabs} from "./view.js";
-import {weatherNow} from "./storage.js";
+import {weatherNow, weatherForecast} from "./storage.js";
 
 const server = {
     serverUrl : 'https://api.openweathermap.org/data/2.5/weather',
@@ -9,7 +9,6 @@ const server = {
     metric : '&units=metric',
 }
 
-const weatherForecast = {};
 
 function searchLocation(event){
     event.preventDefault();
@@ -84,8 +83,7 @@ function parseTime(timeUNIX){
 function parseDate(timeUNIX){
     let date = new Date(timeUNIX * 1000);
 
-    let day = date.getDate()  + ' ' + date.toLocaleString('en', { month: 'short' });
-    return day;
+    return date.getDate() + ' ' + date.toLocaleString('en', {month: 'short'});
 }
 
 function toGrad(kelvin){

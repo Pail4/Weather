@@ -1,4 +1,4 @@
-import {weatherNow} from "./storage.js";
+import {weatherNow, weatherForecast} from "./storage.js";
 
 export const UI = {
     SEARCH_FORM : document.querySelector(".search"),
@@ -23,6 +23,11 @@ export const UI = {
         sunrise : document.querySelectorAll('.sunrise'),
         sunset : document.querySelectorAll('.sunset'),
     },
+
+    FORECAST_BLOCKS : {
+        timeBlockTemplate : document.querySelector('.time-block').cloneNode(true),
+        timeBlockList : document.querySelector('.time-block-list'),
+    },
     
     LOCATIONS_UL : document.querySelector('.locations-ul'),
     CHOOSE_LOCATION : document.querySelector('.liked-location'),
@@ -42,7 +47,7 @@ export function updateTabs(){
     let isInList = weatherNow.liked() ? 'active' : '';
     UI.LIKE_BTN.className = "like-btn " + isInList ;
 
-    let img = document.querySelector('.weather-img')
+    let img = document.querySelector('.weather-img');
     img.src = weatherNow.weatherIcon;
     img.alt = weatherNow.weather;
     updateThirdTab();
@@ -51,7 +56,23 @@ export function updateTabs(){
 }
 
 function updateThirdTab(){
+    const timeBlockList = UI.FORECAST_BLOCKS.timeBlockList.cloneNode();
+    UI.FORECAST_BLOCKS.timeBlockList.remove();
+    for (let date in weatherForecast) {
+        const time = date.slice(-5).trim();
+        const day = date.slice(0, -5).trim();
 
+        const from = weatherForecast[date];
+        const block = UI.FORECAST_BLOCKS.timeBlockTemplate.cloneNode(true);
+        block.querySelector('.date').textContent = day;
+        block.querySelector('.time').textContent = time;
+        block.querySelector('.temp').textContent = from.temperature;
+        block.querySelector('.feels-like').textContent = from.feelsLike;
+        block.querySelector('.time-weather-name').textContent = from.weather;
+        block.querySelector('.time-weather-img').src = from.weatherIcon;
+        timeBlockList.append(block);
+    }
+    UI.TABS.FORECAST.append(timeBlockList);
 }
 
 export function setValueForBlocks(blocks, value){

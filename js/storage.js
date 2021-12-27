@@ -17,4 +17,4 @@ export const weatherNow = {
     }
 }
 
-export const weatherForecast = [];
+export const weatherForecast = {};

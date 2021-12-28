@@ -20,6 +20,7 @@ export const UI = {
         temp : document.querySelectorAll('.temp'),
         feelsLike : document.querySelectorAll('.feels-like'),
         locationName : document.querySelectorAll('.location-name'),
+        weather : document.querySelectorAll('.cur-weather'),
         sunrise : document.querySelectorAll('.sunrise'),
         sunset : document.querySelectorAll('.sunset'),
     },
@@ -42,6 +43,7 @@ export function updateTabs(){
     setValueForBlocks(blocks.temp, weatherNow.temperature);
     setValueForBlocks(blocks.feelsLike, weatherNow.feelsLike);
     setValueForBlocks(blocks.locationName, weatherNow.locationName);
+    setValueForBlocks(blocks.weather, weatherNow.weather);
     setValueForBlocks(blocks.sunrise, weatherNow.sunrise);
     setValueForBlocks(blocks.sunset, weatherNow.sunset);
     let isInList = weatherNow.liked() ? 'active' : '';

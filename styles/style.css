@@ -1,6 +1,12 @@
 @charset "UTF-8";
+html {
+  height: 100%;
+  box-sizing: content-box;
+}
+
 body {
-  background-color: #444;
+  box-sizing: content-box;
+  background-color: #666;
   font-family: "Roboto", sans-serif;
   font-weight: normal;
   font-style: normal;
@@ -228,6 +234,16 @@ body {
 }
 .locations .locations-list li:hover {
   background-color: #8685853d;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #BD8CF3;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /*# sourceMappingURL=style.css.map */

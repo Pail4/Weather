@@ -1,11 +1,17 @@
 // few constants
-$WALL_COLOR: #444;
+$WALL_COLOR: #666;
 $BG_COLOR: #fff;
 $TEXT_COLOR: #000;
 $BORDER: 1px solid #000;
 $HOVER_COLOR: #8685853d;
 
+html{
+    height: 100%;
+    box-sizing: content-box;
+}
+
 body {
+    box-sizing: content-box;
     background-color: $WALL_COLOR;
 
     font-family: 'Roboto', sans-serif;
@@ -267,4 +273,14 @@ body {
             }
         }
     }
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: #BD8CF3;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
 }

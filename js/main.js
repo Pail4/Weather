@@ -1,4 +1,4 @@
-import {changeTab, UI, updateTabs} from "./view.js";
+import {changeTab, UI, updateTabs, updateThirdTab} from "./view.js";
 import {weatherNow, weatherForecast} from "./storage.js";
 
 const server = {
@@ -16,14 +16,13 @@ function searchLocation(event){
     const cityName = UI.SEARCH_INPUT.value;
     const url = `${server.serverUrl}?q=${cityName}&appid=${server.apiKey}`;
     const forecastUrl = `${server.forecastServerUrl}?q=${cityName}&appid=${server.apiKey}`;
-    parseData(cityName, url, forecastUrl);
+    parseData(url, forecastUrl);
     this.reset();
 }
 
-function parseData(cityName, url, forecastUrl) {
+function parseData(url, forecastUrl) {
     getCurrentWeather(url);
     getForecast(forecastUrl);
-    updateTabs();
 }
 
 function getCurrentWeather(url){
@@ -65,6 +64,7 @@ function  getForecast(url){
             forecast.list.forEach((item) => {
                 const time = parseDate(item["dt"]) + ' ' + parseTime(item["dt"]);
                 weatherForecast[time] = setWeatherToObject(item, forecast["city"]["name"]);
+                updateThirdTab();
             })
         })
         .catch(alert)

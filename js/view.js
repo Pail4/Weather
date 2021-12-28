@@ -50,13 +50,11 @@ export function updateTabs(){
     let img = document.querySelector('.weather-img');
     img.src = weatherNow.weatherIcon;
     img.alt = weatherNow.weather;
-    updateThirdTab();
 
     weatherNow.push();
 }
 
-function updateThirdTab(){
-    // TODO: onload view fix;
+export function updateThirdTab(){
     const timeBlockList = UI.FORECAST_BLOCKS.timeBlockList.cloneNode();
     document.querySelector('.time-block-list').remove();
     for (let date in weatherForecast) {

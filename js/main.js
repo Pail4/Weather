@@ -29,6 +29,7 @@ function getCurrentWeather(url){
     fetch(url).then((response) => response.json())
         .then((commit) => {
             Object.assign(weatherNow, setWeatherToObject(commit, commit.name));
+            weatherNow.pushCurrentWeather();
             updateTabs();
         })
         .catch(() => {
@@ -95,7 +96,7 @@ function addLocationInList(event){
         deleteLocation(event, true);
         return;
     }
-
+    if (!weatherNow.locationName) return;
     let liElem = createLikedElement(weatherNow.locationName);
     UI.LOCATIONS_UL.prepend(liElem);
 
@@ -149,6 +150,7 @@ function deleteLocation(e, isCurrentLocation = false){
 }
 
 function changeLocation(locationName){
+    if (!locationName) return;
     UI.SEARCH_INPUT.value = locationName;
     let event = new Event("submit");
     UI.SEARCH_FORM.dispatchEvent(event);
@@ -157,6 +159,11 @@ function changeLocation(locationName){
 
 window.onload = function() {
     weatherNow.get();
+    //weatherNow.getCurrentWeather();
+
+    if (!weatherNow.locationList){
+        weatherNow.locationList = [];
+    }
     weatherNow.locationList.forEach((name) => loadLocationInList(name))
     UI.SEARCH_FORM.addEventListener('submit', searchLocation);
     UI.LIKE_BTN.addEventListener('click', addLocationInList);

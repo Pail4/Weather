@@ -1,0 +1,28 @@
+{
+  "name": "weather",
+  "version": "1.0.0",
+  "description": "weather app",
+  "main": "js/main.js",
+  "scripts": {
+    "test": "hello there"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pail4/Weather.git"
+  },
+  "keywords": [
+    "weather",
+    "web",
+    "app"
+  ],
+  "author": "Pail4",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pail4/Weather/issues"
+  },
+  "homepage": "https://github.com/Pail4/Weather#readme",
+  "dependencies": {
+    "js-cookie": "^3.0.1",
+    "parcel": "^2.2.1"
+  }
+}
